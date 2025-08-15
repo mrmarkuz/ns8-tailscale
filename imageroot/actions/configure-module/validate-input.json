@@ -1,11 +1,11 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Configure kickstart",
-    "$id": "http://nethserver.org/json-schema/task/input/kickstart/configure-module",
-    "description": "Configure kickstart",
+    "title": "Configure tailscale",
+    "$id": "http://nethserver.org/json-schema/task/input/tailscale/configure-module",
+    "description": "Configure tailscale",
     "examples": [
         {
-            "host": "kickstart.domain.org",
+            "host": "tailscale.domain.org",
             "http2https": true,
             "lets_encrypt": true
         }
@@ -19,7 +19,7 @@
     "properties": {
         "host": {
             "type": "string",
-            "description": "Host name for the application, like 'kickstart.domain.org'",
+            "description": "Host name for the application, like 'tailscale.domain.org'",
             "format": "hostname",
             "pattern": "\\."
         },
