@@ -15,16 +15,18 @@ EnvironmentFile=-%S/state/smarthost.env
 WorkingDirectory=%S/state
 Restart=always
 TimeoutStopSec=70
-ExecStartPre=/bin/mkdir -p tmp
 ExecStartPre=/bin/rm -f %t/tailscale-app.pid %t/tailscale-app.ctr-id
 ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/tailscale-app.pid \
     --cidfile %t/tailscale-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/tailscale.pod-id --replace -d --name  tailscale-app \
-    --volume tailscale-app:/var/www/html/:Z \
-    --volume ./tmp:/tmp:Z \
-    --env ENV_VAR=test \
-    ${NGINX_IMAGE}
+    --cap-add net-admin sys_module \
+    --device /dev/net/tun:/dev/net/tun \
+    --volume tailscale-app:/var/lib/tailscale:z \
+    --env TS_AUTHKEY=${TS_AUTHKEY} \
+    --env TS_EXTRA_ARGS="--advertise-tags=tag:container" \
+    --env TS_STATE_DIR=/var/lib/tailscale \
+    ${TAILSCALE_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/tailscale-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP tailscale-app
 SyslogIdentifier=%u
