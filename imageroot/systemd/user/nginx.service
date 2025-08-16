@@ -6,7 +6,7 @@
 [Unit]
 Description=Podman  nginx.service
 BindsTo=tailscale.service
-After=tailscale.service
+After=tailscale-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
