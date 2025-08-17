@@ -24,6 +24,16 @@
         <cv-tile light>
           <cv-form @submit.prevent="configureModule">
             <cv-text-input
+              :label="$t('settings.server')"
+              placeholder="https://headscale.example.org"
+              v-model.trim="server"
+              class="mg-bottom"
+              :invalid-message="$t(error.server)"
+              :disabled="loading.getConfiguration || loading.configureModule"
+              ref="server"
+            >
+            </cv-text-input>
+            <cv-text-input
               :label="$t('settings.tailscale_fqdn')"
               placeholder="tailscale.example.org"
               v-model.trim="host"
@@ -118,6 +128,7 @@ export default {
         page: "settings",
       },
       urlCheckInterval: null,
+      server: "",
       host: "",
       enable_web_interface: false,
       auth_key: "",
@@ -128,6 +139,7 @@ export default {
       error: {
         getConfiguration: "",
         configureModule: "",
+        server: "",
         host: "",
         auth_key: "",
         enable_web_interface: "",
@@ -195,6 +207,7 @@ export default {
     },
     getConfigurationCompleted(taskContext, taskResult) {
       const config = taskResult.output;
+      this.server = config.server;
       this.host = config.host;
       this.enable_web_interface = config.enable_web_interface;
       this.auth_key = config.auth_key;
@@ -210,6 +223,14 @@ export default {
 
         if (isValidationOk) {
           this.focusElement("host");
+        }
+        isValidationOk = false;
+      }
+      if (!this.server) {
+        this.error.server = "common.required";
+
+        if (isValidationOk) {
+          this.focusElement("server");
         }
         isValidationOk = false;
       }
@@ -263,6 +284,7 @@ export default {
         this.createModuleTaskForApp(this.instanceName, {
           action: taskAction,
           data: {
+            server: this.server,
             host: this.host,
             enable_web_interface: this.enable_web_interface,
             auth_key: this.auth_key,

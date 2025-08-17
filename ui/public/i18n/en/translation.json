@@ -40,7 +40,8 @@
     "host_pattern": "Must be a valid fully qualified domain name",
     "host_format": "Must be a valid fully qualified domain name",
     "enable_web_interface": "Enable the web interface",
-    "auth_key": "Authentication key"
+    "auth_key": "Authentication key",
+    "server": "Login server URL"
   },
   "about": {
     "title": "About"

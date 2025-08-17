@@ -18,6 +18,7 @@ import agent
 config = {}
 
 # Read current configuration from the environment file
+config["server"] = os.getenv("LOGIN_SERVER","")
 config["host"] = os.getenv("TS_HOST","")
 config["enable_web_interface"] = os.getenv("ENABLE_WEB_INTERFACE") == "True"
 config["auth_key"] = os.getenv("TS_AUTHKEY","")

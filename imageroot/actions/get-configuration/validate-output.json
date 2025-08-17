@@ -5,6 +5,7 @@
     "description": "Get tailscale settings",
     "examples": [
         {
+            "server": "https://headscale.domain.org",
             "host": "tailscale.domain.org",
             "enable_web_interface": false,
             "auth_key": "abcdefgh"
@@ -12,10 +13,15 @@
     ],
     "type": "object",
     "required": [
+        "server",
         "host",
         "enable_web_interface"
     ],
     "properties": {
+        "server": {
+            "type": "string",
+            "description": "Login Server URL to connect"
+        },
         "host": {
             "type": "string",
             "description": "Host name for the application, like 'tailscale.domain.org'",
