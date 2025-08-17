@@ -39,7 +39,8 @@
     "domain_already_used_in_traefik": "Domain already used in traefik",
     "host_pattern": "Must be a valid fully qualified domain name",
     "host_format": "Must be a valid fully qualified domain name",
-    "enable_web_interface": "Enable the web interface"
+    "enable_web_interface": "Enable the web interface",
+    "auth_key": "Authentication key"
   },
   "about": {
     "title": "About"

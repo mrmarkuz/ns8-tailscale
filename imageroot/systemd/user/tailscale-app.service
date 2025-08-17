@@ -6,6 +6,8 @@
 [Unit]
 Description=Podman  tailscale-app.service
 BindsTo=tailscale.service
+After=tailscale.service
+#Before=nginx.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
@@ -25,6 +27,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/tailscale-app.pid \
     --env TS_EXTRA_ARGS="--advertise-tags=tag:container --login-server=${LOGIN_SERVER}" \
     --env TS_STATE_DIR=/var/lib/tailscale \
     --env TS_HOST=${TS_HOST} \
+    --env TS_AUTHKEY=${TS_AUTHKEY} \
     ${TAILSCALE_IMAGE}
 ExecStartPost=/usr/bin/podman exec -ti tailscale-app tailscale set --webclient=${ENABLE_WEB_INTERFACE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/tailscale-app.ctr-id -t 10

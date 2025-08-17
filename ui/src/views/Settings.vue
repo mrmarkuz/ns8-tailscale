@@ -32,7 +32,7 @@
               :disabled="loading.getConfiguration || loading.configureModule"
               ref="host"
             >
-            </cv-text-input>            
+            </cv-text-input>
             <cv-toggle
               value="enable_web_interface"
               :label="$t('settings.enable_web_interface')"
@@ -52,6 +52,16 @@
               <cv-accordion-item :open="toggleAccordion[0]">
                 <template slot="title">{{ $t("settings.advanced") }}</template>
                 <template slot="content">
+                  <cv-text-input
+                    :label="$t('settings.auth_key')"
+                    placeholder=""
+                    v-model.trim="auth_key"
+                    class="mg-bottom"
+                    :invalid-message="$t(error.auth_key)"
+                    :disabled="loading.getConfiguration || loading.configureModule"
+                    ref="auth_key"
+                  >
+                  </cv-text-input>
                 </template>
               </cv-accordion-item>
             </cv-accordion>
@@ -110,6 +120,7 @@ export default {
       urlCheckInterval: null,
       host: "",
       enable_web_interface: false,
+      auth_key: "",
       loading: {
         getConfiguration: false,
         configureModule: false,
@@ -118,6 +129,7 @@ export default {
         getConfiguration: "",
         configureModule: "",
         host: "",
+        auth_key: "",
         enable_web_interface: "",
       },
     };
@@ -185,6 +197,7 @@ export default {
       const config = taskResult.output;
       this.host = config.host;
       this.enable_web_interface = config.enable_web_interface;
+      this.auth_key = config.auth_key;
       this.loading.getConfiguration = false;
       this.focusElement("host");
     },
@@ -252,6 +265,7 @@ export default {
           data: {
             host: this.host,
             enable_web_interface: this.enable_web_interface,
+            auth_key: this.auth_key,
           },
           extra: {
             title: this.$t("settings.instance_configuration", {

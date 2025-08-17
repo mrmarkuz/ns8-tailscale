@@ -16,7 +16,9 @@ data = json.load(sys.stdin)
 # Setup default values
 host = data.get("host")
 ewi = data.get("enable_web_interface", False)
+key = data.get("auth_key")
 
 # Set env vars
 agent.set_env("TS_HOST", host)
 agent.set_env("ENABLE_WEB_INTERFACE", ewi)
+agent.set_env("TS_AUTHKEY", key)

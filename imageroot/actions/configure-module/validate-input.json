@@ -6,7 +6,8 @@
     "examples": [
         {
             "host": "tailscale.domain.org",
-            "enable_web_interface": false
+            "enable_web_interface": false,
+            "auth_key": "abcdefg"
         }
     ],
     "type": "object",
@@ -24,6 +25,10 @@
             "type": "boolean",
             "title": "Enable web interface",
             "description": "Enable the tailscale web interface"
+        },
+	"auth_key": {
+            "type": "string",
+            "description": "Host name for the application, like 'tailscale.domain.org'" 
         }
     }
 }
