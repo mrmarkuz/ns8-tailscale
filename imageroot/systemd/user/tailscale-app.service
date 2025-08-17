@@ -6,8 +6,6 @@
 [Unit]
 Description=Podman  tailscale-app.service
 BindsTo=tailscale.service
-After=tailscale.service
-Before=nginx.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
@@ -15,19 +13,20 @@ EnvironmentFile=%S/state/environment
 EnvironmentFile=-%S/state/smarthost.env
 WorkingDirectory=%S/state
 Restart=always
-TimeoutStopSec=70
+TimeoutStopSec=300
 ExecStartPre=/bin/rm -f %t/tailscale-app.pid %t/tailscale-app.ctr-id
 ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/tailscale-app.pid \
     --cidfile %t/tailscale-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/tailscale.pod-id --replace -d --name  tailscale-app \
-    --cap-add net-admin sys_module \
+    --cap-add NET_ADMIN,SYS_MODULE \
     --device /dev/net/tun:/dev/net/tun \
     --volume tailscale-app:/var/lib/tailscale:z \
-    --env TS_AUTHKEY=${TS_AUTHKEY} \
-    --env TS_EXTRA_ARGS="--advertise-tags=tag:container" \
+    --env TS_EXTRA_ARGS="--advertise-tags=tag:container --login-server=${LOGIN_SERVER}" \
     --env TS_STATE_DIR=/var/lib/tailscale \
+    --env TS_HOST=${TS_HOST} \
     ${TAILSCALE_IMAGE}
+ExecStartPost=/usr/bin/podman exec -ti tailscale-app tailscale set --webclient=${ENABLE_WEB_INTERFACE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/tailscale-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP tailscale-app
 SyslogIdentifier=%u

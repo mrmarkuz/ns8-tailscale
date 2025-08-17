@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 #
 # Copyright (C) 2022 Nethesis S.r.l.
 # SPDX-License-Identifier: GPL-3.0-or-later
@@ -18,10 +16,8 @@ import agent
 config = {}
 
 # Read current configuration from the environment file
-config["host"] = os.getenv("TRAEFIK_HOST","")
-config["http2https"] = os.getenv("TRAEFIK_HTTP2HTTPS") == "True"
-config["lets_encrypt"] = os.getenv("TRAEFIK_LETS_ENCRYPT") == "True"
-config["authkey"] = os.getenv("AUTH_KEY","")
+config["host"] = os.getenv("TS_HOST","")
+config["enable_web_interface"] = os.getenv("ENABLE_WEB_INTERFACE") == "True"
 
 # Dump the configuration to stdout
 json.dump(config, fp=sys.stdout)

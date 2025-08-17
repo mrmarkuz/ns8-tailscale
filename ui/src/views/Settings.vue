@@ -32,25 +32,11 @@
               :disabled="loading.getConfiguration || loading.configureModule"
               ref="host"
             >
-            </cv-text-input>
+            </cv-text-input>            
             <cv-toggle
-              value="letsEncrypt"
-              :label="$t('settings.lets_encrypt')"
-              v-model="isLetsEncryptEnabled"
-              :disabled="loading.getConfiguration || loading.configureModule"
-              class="mg-bottom"
-            >
-              <template slot="text-left">{{
-                $t("settings.disabled")
-              }}</template>
-              <template slot="text-right">{{
-                $t("settings.enabled")
-              }}</template>
-            </cv-toggle>
-            <cv-toggle
-              value="httpToHttps"
-              :label="$t('settings.http_to_https')"
-              v-model="isHttpToHttpsEnabled"
+              value="enable_web_interface"
+              :label="$t('settings.enable_web_interface')"
+              v-model="enable_web_interface"
               :disabled="loading.getConfiguration || loading.configureModule"
               class="mg-bottom"
             >
@@ -123,8 +109,7 @@ export default {
       },
       urlCheckInterval: null,
       host: "",
-      isLetsEncryptEnabled: false,
-      isHttpToHttpsEnabled: true,
+      enable_web_interface: false,
       loading: {
         getConfiguration: false,
         configureModule: false,
@@ -133,8 +118,7 @@ export default {
         getConfiguration: "",
         configureModule: "",
         host: "",
-        lets_encrypt: "",
-        http2https: "",
+        enable_web_interface: "",
       },
     };
   },
@@ -200,9 +184,7 @@ export default {
     getConfigurationCompleted(taskContext, taskResult) {
       const config = taskResult.output;
       this.host = config.host;
-      this.isLetsEncryptEnabled = config.lets_encrypt;
-      this.isHttpToHttpsEnabled = config.http2https;
-
+      this.enable_web_interface = config.enable_web_interface;
       this.loading.getConfiguration = false;
       this.focusElement("host");
     },
@@ -269,8 +251,7 @@ export default {
           action: taskAction,
           data: {
             host: this.host,
-            lets_encrypt: this.isLetsEncryptEnabled,
-            http2https: this.isHttpToHttpsEnabled,
+            enable_web_interface: this.enable_web_interface,
           },
           extra: {
             title: this.$t("settings.instance_configuration", {

@@ -10,7 +10,7 @@
 
 [Unit]
 Description=Podman tailscale.service
-Requires=tailscale-app.service nginx.service
+Requires=tailscale-app.service
 Before=tailscale-app.service
 
 [Service]

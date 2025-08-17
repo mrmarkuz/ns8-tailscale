@@ -36,8 +36,8 @@ buildah add "${container}" imageroot /imageroot
 buildah add "${container}" ui/dist /ui
 
 buildah config --entrypoint=/ \
-    --label="org.nethserver.authorizations=traefik@node:routeadm" \
-    --label="org.nethserver.tcp-ports-demand=1" \
+    --label="org.nethserver.authorizations=" \
+    --label="org.nethserver.tcp-ports-demand=0" \
     --label="org.nethserver.rootfull=0" \
     --label="org.nethserver.images=docker.io/library/nginx:1.29.1 docker.io/tailscale/tailscale:v1.86.2" \
     "${container}"
