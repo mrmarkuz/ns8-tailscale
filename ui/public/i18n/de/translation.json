@@ -15,7 +15,19 @@
         "test_field": "Testfeld",
         "configure_instance": "{instance} konfigurieren",
         "save": "Speichern",
-        "title": "Einstellungen"
+        "title": "Einstellungen",
+        "tailscale_fqdn": "Tailscale Node Hostname",
+        "enabled": "Aktiv",
+        "disabled": "Inaktiv",
+        "advanced": "Erweitert",
+        "configuring": "Konfiguriere",
+        "instance_configuration": "Tailscale konfigurieren",
+        "domain_already_used_in_traefik": "Domain wird in Traefik bereits genutzt",
+        "host_pattern": "Host-Muster",
+        "host_format": "Muss ein Domänenname sein",
+        "enable_web_interface": "Web interface aktivieren",
+        "auth_key": "Authentifizierngsschlüssel",
+        "server": "Login server URL"
     },
     "common": {
         "required": "erforderlich",
@@ -36,7 +48,11 @@
         "title": "Status",
         "installation_node": "Knoten der Installation",
         "node": "Knoten",
-        "no_volumes": "keine Volumen"
+        "no_volumes": "keine Volumen",
+        "tailscale_webapp": "Tailscale",
+        "not_configured": "Nicht konfiguriert",
+        "open_webapp": "Tailscale öffnen",
+        "configure": "Konfiguration"
     },
     "about": {
         "title": "Über"
