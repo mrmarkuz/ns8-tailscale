@@ -39,7 +39,7 @@ buildah config --entrypoint=/ \
     --label="org.nethserver.authorizations=" \
     --label="org.nethserver.tcp-ports-demand=0" \
     --label="org.nethserver.rootfull=0" \
-    --label="org.nethserver.images=docker.io/tailscale/tailscale:v1.86.2" \
+    --label="org.nethserver.images=docker.io/tailscale/tailscale:v1.86.5" \
     "${container}"
 # Commit the image
 buildah commit "${container}" "${repobase}/${reponame}"
