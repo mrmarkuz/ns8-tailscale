@@ -16,5 +16,5 @@
     "bug_url": "https://github.com/mrmarkuz/ns8-tailscale",
     "code_url": "https://github.com/mrmarkuz/ns8-tailscale"
   },
-  "source": "ghcr.io/nethserver/tailscale"
+  "source": "ghcr.io/mrmarkuz/tailscale"
 }
