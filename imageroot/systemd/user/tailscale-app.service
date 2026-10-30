@@ -23,7 +23,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/tailscale-app.pid \
     --cap-add NET_ADMIN,SYS_MODULE \
     --device /dev/net/tun:/dev/net/tun \
     --volume tailscale-app:/var/lib/tailscale:z \
-    --env TS_EXTRA_ARGS="--advertise-tags=tag:container --login-server=${LOGIN_SERVER}" \
+    --env TS_EXTRA_ARGS="--login-server=${LOGIN_SERVER}" \
     --env TS_STATE_DIR=/var/lib/tailscale \
     --env TS_HOSTNAME=${TS_HOSTNAME} \
     --env TS_AUTHKEY=${TS_AUTHKEY} \
